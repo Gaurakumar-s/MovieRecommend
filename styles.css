@@ -1,3 +1,4 @@
+/* Global */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #1e1e2f;
@@ -5,7 +6,7 @@ body {
     margin: 0;
     padding: 20px;
 }
-
+/* Header*/
 .site-title {
     text-align: center;
     font-size: 2.5em;
@@ -13,7 +14,7 @@ body {
     color: rgb(104, 75, 132);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
-
+/* Search Style */
 #search {
     width: 100%;
     padding: 15px;
@@ -30,11 +31,11 @@ body {
     background-color: #4a4a7a;
     outline: none;
 }
-
+/* Placeholder text color */
 #search::placeholder {
     color: #aaa;
 }
-
+/* Section titles */
 .section-title {
     margin: 20px 0;
     padding: 15px;
@@ -44,18 +45,18 @@ body {
     text-align: center;
     text-transform: uppercase;
 }
-
+/* movie section Container */
 .movie-section {
     margin-bottom: 40px;
 }
-
+/* Grid layout for movie lists */
 #movies, .movie-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
-
+/* Individual movie card  */
 .movie {
     width: 200px;
     background-color: #3a3a5a;
@@ -68,24 +69,24 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     overflow: hidden;
 }
-
+/* Hover effect movie cards */
 .movie:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
-
+/* Movie poster image styling */
 .movie img {
     width: 100%;
     height: 300px;
     object-fit: cover;
     border-radius: 4px;
 }
-
+/* Movie title */
 .movie h3 {
     margin: 10px 0;
     font-size: 1.1em;
 }
-
+/* Rating badge */
 .movie-rating {
     background-color: #22254b;
     padding: 5px 10px;
@@ -93,7 +94,7 @@ body {
     display: inline-block;
     margin-top: 5px;
 }
-
+/* Movie overview ,Hover  */
 .movie-overview {
     position: absolute;
     bottom: -100%;
@@ -107,11 +108,11 @@ body {
     transition: bottom 0.3s ease-in-out;
     max-height: 80%;
 }
-
+/* overview on hover */
 .movie:hover .movie-overview {
     bottom: 0;
 }
-
+/* Movie details modal*/
 .movie-details {
     display: none;
     position: fixed;
@@ -127,11 +128,11 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
-
+/*  movie details */
 .movie-details.active {
     display: block;
 }
-
+/*overlay  */
 .overlay {
     display: none;
     position: fixed;
@@ -142,11 +143,11 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
 }
-
+/* Active state for overlay */
 .overlay.active {
     display: block;
 }
-
+/* Cast members  */
 .cast-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -154,7 +155,7 @@ body {
     margin-top: 20px;
     justify-items: center;
 }
-
+/* Hover effect  cast member  */
 .cast-member {
     width: 120px;
     text-align: center;
@@ -163,11 +164,11 @@ body {
     border-radius: 8px;
     transition: transform 0.3s ease;
 }
-
+/* Cast member profile image  */
 .cast-member:hover {
     transform: scale(1.05);
 }
-
+/* Cast member name  */
 .cast-image {
     width: 100px;
     height: 100px;
@@ -175,18 +176,18 @@ body {
     object-fit: cover;
     margin-bottom: 8px;
 }
-
+/* Cast member name */
 .cast-name {
     font-size: 0.9em;
     margin-bottom: 4px;
     font-weight: bold;
 }
-
+/* Cast member character name */
 .cast-character {
     font-size: 0.8em;
     color: #aaa;
 }
-
+/* Trailer link button styling */
 .trailer-link {
     display: inline-block;
     color: #fff;
@@ -198,13 +199,13 @@ body {
     transition: all 0.3s ease;
     margin: 20px auto;
 }
-
+/* Hover effect trailer link */
 .trailer-link:hover {
     background-color: #f40612;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
+/* Person info section */
 .person-info {
     background-color: #3a3a5a;
     padding: 20px;
@@ -212,33 +213,33 @@ body {
     border-radius: 8px;
     display: none;
 }
-
+/* Active state for person */
 .person-info.active {
     display: block;
 }
-
+/* Responsive design for mobile devices */
 @media (max-width: 600px) {
     .movie {
         width: 150px;
     }
-    
+    /* Adjust poster height */
     .movie img {
         height: 225px;
     }
-    
+     /* Adjust modal padding and width */
     .movie-details {
         padding: 15px;
         width: 90%;
     }
-    
+    /* Adjust cast grid */
     .cast-container {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
-    
+    /* Adjust cast member card*/
     .cast-member {
         width: 100px;
     }
-    
+    /* Adjust image size*/
     .cast-image {
         width: 80px;
         height: 80px;
