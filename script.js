@@ -15,7 +15,7 @@ const searchResults = document.getElementById('searchResults');
 const defaultContent = document.getElementById('defaultContent');
 const searchResultsTitle = document.querySelector('#searchResults .section-title');
 
-// Mappings
+//  mapping objects for genre IDs and language codes
 const genres = {
     action: 28, adventure: 12, animation: 16, comedy: 35, crime: 80,
     documentary: 99, drama: 18, family: 10751, fantasy: 14, history: 36,
@@ -25,7 +25,7 @@ const genres = {
     'romantic comedy': 10749, romcom: 10749, 'rom-com': 10749,
     'rom com': 10749, 'horror thriller': 27
 };
-
+// Language code mappings
 const languages = {
     'hindi': 'hi',
     'english': 'en',
@@ -43,8 +43,10 @@ const languages = {
 };
 
 // AI Search Function(Using Gemini to extarct what data user want to get and then send it to Tmdb api)
+// Categories: PERSON, MOVIES, GENRE, or LANGUAGE
 async function getAIMovieSuggestions(query) {
     try {
+        // Sending query to Gemini AI for analysis
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -70,14 +72,15 @@ async function getAIMovieSuggestions(query) {
                 }]
             })
         });
+          // Processing AI response and categorizing the search
         const data = await response.json();
         const result = data.candidates[0].content.parts[0].text;
-
+        // Extract category and value using regex
         const personMatch = result.match(/PERSON: (.*)/);
         const moviesMatch = result.match(/MOVIES: (.*)/);
         const genreMatch = result.match(/GENRE: (.*)/);
         const languageMatch = result.match(/LANGUAGE: (.*)/);
-
+        // Return appropriate category and value
         if (languageMatch) {
             return { type: 'language', value: languageMatch[1].trim().toLowerCase() };
         } else if (personMatch) {
@@ -112,7 +115,7 @@ async function searchByLanguage(language) {
         return [];
     }
 }
-// Search movie on basis of Genre
+// Search movie on basis of Genre using TMDB
 async function searchByGenre(genreName) {
     const genreId = genres[genreName.toLowerCase()];
     if (!genreId) return [];
@@ -137,7 +140,7 @@ async function searchPerson(query) {
         return [];
     }
 }
-// Search movie using Nickname of acto
+// Get detailed information about a actor including their movies
 async function getPersonDetails(personId) {
     try {
         const [details, credits] = await Promise.all([
@@ -153,7 +156,7 @@ async function getPersonDetails(personId) {
         return null;
     }
 }
-// Using query from Gemini and Showing result
+// Search movies by title using TMDB API
 async function searchMovies(query) {
     const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`;
     try {
@@ -165,7 +168,7 @@ async function searchMovies(query) {
         return [];
     }
 }
-
+//Get trending movies for the week
 async function getTrendingMovies() {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDB_KEY}`);
@@ -176,7 +179,7 @@ async function getTrendingMovies() {
         return [];
     }
 }
-
+//Get Oscar and other award-winning movies
 async function getOscarWinningMovies() {
     try {
         const requests = [
@@ -185,13 +188,14 @@ async function getOscarWinningMovies() {
             fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&sort_by=vote_average.desc&vote_count.gte=1000&with_keywords=156066&page=1`),
             fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&sort_by=popularity.desc&with_keywords=209704&page=1`) // National Awards
         ];
+        // Wait for all requests to complete
         const responses = await Promise.all(requests);
         const data = await Promise.all(responses.map(response => response.json()));
         
         // Combine all results and remove duplicates
         const allMovies = data.flatMap(d => d.results);
         const uniqueMovies = Array.from(new Map(allMovies.map(movie => [movie.id, movie])).values());
-        
+        // Filter and sort results
         return uniqueMovies
             .filter(movie => movie.poster_path) // Only include movies with posters
             .sort((a, b) => b.vote_average - a.vote_average)
@@ -201,7 +205,8 @@ async function getOscarWinningMovies() {
         return [];
     }
 }
-// ON Clicking show Cast Name and Trailer(Redirect to Youtube)
+// Get detailed information about a specific movie
+// Including cast, crew, and trailer information
 async function getMovieDetails(movieId) {
     try {
         const [movieDetails, credits, videos] = await Promise.all([
@@ -209,10 +214,10 @@ async function getMovieDetails(movieId) {
             fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${TMDB_KEY}`).then(r => r.json()),
             fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${TMDB_KEY}`).then(r => r.json())
         ]);
-        
+        // Find trailer and director
         const trailer = videos.results.find(v => v.type === 'Trailer');
         const director = credits.crew.find(c => c.job === 'Director');
-        
+        // Return both  data
         return {
             ...movieDetails,
             director: director?.name || 'Unknown',
@@ -369,7 +374,8 @@ async function guessLanguage(query) {
     }
     return null;
 }
-// Home Page
+// Home Page Initialize the page with trending and award-winning movies
+ 
 async function initializePage() {
     try {
         const [trending, awardWinning] = await Promise.all([
@@ -385,7 +391,7 @@ async function initializePage() {
     }
 }
 
-// Event Listeners
+// Event Listeners for user interactions
 let searchTimeout;
 searchInput.addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
