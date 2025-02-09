@@ -1,6 +1,6 @@
 // API Keys
 const TMDB_KEY = '3fd2be6f0c70a2a598f084ddfb75487c';
-const GEMINI_KEY = 'AIzaSyAvYfpJ8XoZt54o1MZjBwF1Lsw3YWekrgs';
+const GEMINI_KEY = 'AIzaSyB7EsLS92Nco2karpBP1dtgXFjhdLcvutY';
 
 // DOM Elements
 const searchInput = document.getElementById('search');
