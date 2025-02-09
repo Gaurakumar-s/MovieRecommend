@@ -1,6 +1,6 @@
 # MovieRecommend - Chanachur Talkies
 
-##[Website Link](https://gaurakumar-s.github.io/MovieRecommend/)
+## [Website Link](https://gaurakumar-s.github.io/MovieRecommend/)
 
 ## Project Overview
 A web-based movie search platform that leverages Google's Gemini AI to provide intelligent search capabilities. Users can search for movies using natural language queries, including movie titles, actor names, genres, and languages. The platform provides comprehensive movie information, including cast details, trailers, and ratings.
