@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Powered Movie Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="site-title">Chanachur Talkies</h1>
+    <input type="text" id="search" placeholder="Search movies by title, actor/actress name, nickname, genre, or language...">
+    <div id="suggestions"></div>
+    <div id="personInfo" class="person-info"></div>
+    
+    <div id="searchResults" class="movie-section">
+        <h2 class="section-title" style="display: none">Search Results</h2>
+        <div id="movies"></div>
+    </div>
+
+    <div id="defaultContent">
+        <div id="trendingSection" class="movie-section">
+            <h2 class="section-title">Trending Movies</h2>
+            <div id="trendingMovies" class="movie-list"></div>
+        </div>
+        <div id="oscarSection" class="movie-section">
+            <h2 class="section-title">Award Winning Films</h2>
+            <div id="oscarMovies" class="movie-list"></div>
+        </div>
+    </div>
+
+    <div id="movieDetails" class="movie-details"></div>
+    <div id="overlay" class="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
