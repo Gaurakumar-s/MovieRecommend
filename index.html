@@ -1,41 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI-Powered Movie Search</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chanachur Talkies</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fuse.js for fuzzy matching -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 </head>
 <body>
-    <!--title of the website -->
+  <header>
     <h1 class="site-title">Chanachur Talkies</h1>
-    <!-- Search Section -->
-    <input type="text" id="search" placeholder="Search movies by title, actor/actress name, nickname, genre, or language...">
-    <div id="suggestions"></div>
-    <div id="personInfo" class="person-info"></div>
-     <!--search results -->
-    <div id="searchResults" class="movie-section">
-        <h2 class="section-title" style="display: none">Search Results</h2>
-        <div id="movies"></div>
+    <div class="toolbar">
+      <button id="voiceBtn" title="Voice search (press to speak)">🎙️ Voice</button>
+      <button id="chatBtn" title="Open assistant chat">💬 Assistant</button>
+      <select id="themeToggle" aria-label="Theme toggle">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
     </div>
-    <!-- Shown when no search is active -->
-    <div id="defaultContent">
-        <!-- Trending Movies Section -->
-        <div id="trendingSection" class="movie-section">
-            <h2 class="section-title">Trending Movies</h2>
-            <div id="trendingMovies" class="movie-list"></div>
-        </div>
-        <!-- Award Winning Movies Section -->
-        <div id="oscarSection" class="movie-section">
-            <h2 class="section-title">Award Winning Films</h2>
-            <div id="oscarMovies" class="movie-list"></div>
-        </div>
-    </div>
-     <!-- Movie Details Container -->
+  </header>
 
-    <div id="movieDetails" class="movie-details"></div>
-    <div id="overlay" class="overlay"></div>
+  <main>
+    <section class="search-section">
+      <input id="search" type="search" placeholder="Search title, actor, genre, language, nickname..." autocomplete="off" />
+      <div id="suggestions" class="suggestions" aria-live="polite"></div>
 
-    <script src="script.js"></script>
+      <div class="filters">
+        <select id="filterGenre"><option value="">All Genres</option></select>
+        <select id="filterLanguage"><option value="">All Languages</option></select>
+        <select id="filterYear"><option value="">Any Year</option></select>
+        <button id="applyFilters">Apply</button>
+        <button id="clearFilters">Clear</button>
+      </div>
+
+      <div id="personInfo" class="person-info" role="status"></div>
+    </section>
+
+    <section id="searchResults" class="movie-section">
+      <h2 class="section-title">Search Results</h2>
+      <div id="movies" class="movie-list"></div>
+      <div id="loadMoreWrapper" class="load-more-wrapper">
+        <button id="loadMoreBtn">Load more</button>
+      </div>
+    </section>
+
+    <section id="defaultContent">
+      <div id="trendingSection" class="movie-section">
+        <h2 class="section-title">Trending Movies</h2>
+        <div id="trendingMovies" class="movie-list"></div>
+      </div>
+
+      <div id="oscarSection" class="movie-section">
+        <h2 class="section-title">Award Winning Films</h2>
+        <div id="oscarMovies" class="movie-list"></div>
+      </div>
+
+      <div id="moodSection" class="mood-section">
+        <h2 class="section-title">Pick a mood</h2>
+        <div class="mood-buttons" id="moodButtons"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Movie Details Modal -->
+  <div id="movieDetails" class="movie-details" role="dialog" aria-modal="true"></div>
+  <div id="overlay" class="overlay" tabindex="-1"></div>
+
+  <!-- Main combined script -->
+  <script src="script.js"></script>
 </body>
 </html>
